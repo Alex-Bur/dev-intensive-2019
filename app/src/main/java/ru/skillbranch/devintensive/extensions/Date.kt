@@ -41,7 +41,15 @@ fun Date.humanizeDiff(date:Date = Date()) : String {
         in 75*MINUTE..22*HOUR -> s="${(diff/ HOUR)} часов назад"
         in 22*HOUR..26*HOUR -> s="день назад"
         in 26*HOUR..360*DAY -> s="${(diff/ DAY)} дней назад"
-        else -> s="более года назад"
+        in 360*DAY..10000*DAY -> s="более года назад"
+        in -45*SECOND..-SECOND -> s="через несколько секунд"
+        in -75*SECOND..-45*SECOND -> s="через минуту"
+        in -45*MINUTE..-75*SECOND -> s="через ${-(diff/ MINUTE)} минут"
+        in -75*MINUTE..-45*MINUTE -> s="через час"
+        in -22*HOUR..-75*MINUTE -> s="через ${-(diff/ HOUR)} часов"
+        in -26*HOUR..-22*HOUR -> s="через день"
+        in -360*DAY..-26*HOUR -> s="через ${-(diff/ DAY)} дней"
+        in -10000*DAY..-360*DAY -> s="более чем через год"
     }
     return s
 }
