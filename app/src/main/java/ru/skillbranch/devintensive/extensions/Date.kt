@@ -41,7 +41,7 @@ fun declension(count: Long, type: TimeUnits) : String {
             five = "секунд"
         }
         TimeUnits.MINUTE -> {
-            one = "минута"
+            one = "минуту"
             two = "минуты"
             five = "минут"
         }
@@ -106,8 +106,37 @@ fun String.truncate(len: Int = 16) : String {
     var s = this
 
     s = s.trimEnd()
-    if (s?.length<=len) return s
+    if (s.length<=len) return s
 
     return s.substring(0,len).trimEnd() +"..."
+
+}
+
+fun String.stripHtml() : String {
+    if (this.isBlank() == true) return this
+
+    var s = this
+    var last_s = ""
+    val ch1: Char = '\"'
+    val ch2: Char = '\''
+    for (char in s) {
+        if (!char.equals(ch1) && !char.equals(ch2))
+            last_s += char
+    }
+    println(last_s)
+    s = last_s
+    last_s = ""
+    var i:Int = 0
+    println(s.length)
+    while ( s != last_s || i>s.length) {
+           last_s = s
+           i++
+           s = last_s?.substringBefore('<') + last_s?.substringAfter('>')
+           println(s+"\n +$i" )
+    }
+
+    return s
+
+
 
 }

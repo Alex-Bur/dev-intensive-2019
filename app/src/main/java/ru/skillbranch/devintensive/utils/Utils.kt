@@ -90,7 +90,7 @@ object Utils {
     if (firstName?.isNotEmpty() == true) s1 = firstName?.substring(0,1)?.toUpperCase()
     if (lastName?.isNotEmpty() == true) s2 = lastName?.substring(0,1)?.toUpperCase()
 //    println("'$s1' '$s2'")
-    if ((s2=="" || s2==" ") && (s1=="" || s1==" ")) {
+    if ((s2?.isBlank() == true) && (s1?.isBlank() == true)) {
         s1 = null
         s2 = ""
     }
