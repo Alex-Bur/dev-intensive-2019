@@ -116,27 +116,34 @@ fun String.stripHtml() : String {
     if (this.isBlank() == true) return this
 
     var s = this
-    var last_s = ""
-    val ch1: Char = '\"'
+
+    while (s.indexOf("  ") > 0) {
+        s = s.removeRange(s.indexOf("  "),s.indexOf("  ")+1)
+    }
+
+    while (s.indexOf("'") > 0) {
+        s = s.removeRange(s.indexOf("'"),s.indexOf("'")+1)
+    }
+
+    while (s.indexOf("\"") > 0) {
+        s = s.removeRange(s.indexOf("\""),s.indexOf("\"")+1)
+    }
+
+/*    val ch1: Char = '\"'
     val ch2: Char = '\''
     for (char in s) {
         if (!char.equals(ch1) && !char.equals(ch2))
             last_s += char
-    }
-    println(last_s)
-    s = last_s
-    last_s = ""
-    var i:Int = 0
-    println(s.length)
-    while ( s != last_s || i>s.length) {
-           last_s = s
-           i++
-           s = last_s?.substringBefore('<') + last_s?.substringAfter('>')
-           println(s+"\n +$i" )
+    }*/
+
+    var i1: Int = s?.indexOf("<")
+    var i2: Int = s?.indexOf(">")
+    while ( i1 < i2 && s.length >0) {
+        s = s?.substringBefore('<') + s?.substringAfter('>')
+        i1 = s?.indexOf("<")
+        i2 = s?.indexOf(">")
     }
 
     return s
-
-
 
 }
